@@ -1,7 +1,7 @@
 resource "aws_customer_gateway" "customer_gateway" {
   provider = "aws"
   bgp_asn    = 65000
-  ip_address = "${google_compute_address.vpn_static_ip.address}"
+  ip_address = "${var.peer_ip}"
   type       = "ipsec.1"
 
   tags {

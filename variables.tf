@@ -1,14 +1,27 @@
 variable "region1_routable_cidr" {
     description = "region1 routable cidr"
-    default = "10.0.0.0/24"
+    default = "10.0.0.0/22"
 }
+
+variable "cf_ip" {
+    description = "cf ip"
+    default = "10.0.0.5"
+}
+
+variable "cf_wss_ip" {
+    description = "cf ip"
+    default = "10.0.0.5"
+}
+
+variable "peer_ip" {
+    default = "35.196.135.196"
+}
+
 
 variable "region2_routable_cidr" {
     description = "region2 routable cidr"
     default = "10.0.10.0/24"
 }
-
-variable "google_region" {}
 
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
@@ -22,12 +35,12 @@ variable "az" {
 
 variable "vpc_cidr" {
     description = "VPC cidr"
-    default = "10.0.1.0/24"
+    default = "10.0.16.0/23"
 }
 
 variable "public_subnet_cidr_vpc" {
   description = "VPC cidr"
-  default = "10.0.1.0/25"
+  default = "10.0.16.0/24"
 }
 
 variable "instance_type" {

@@ -1,7 +1,7 @@
 resource "google_compute_vpn_gateway" "target_gateway" {
   provider= "google"
   name    = "vpn1"
-  network = "${google_compute_network.test.self_link}"
+  network = "${var.network}"
   region  = "${var.google_region}"
 }
 
@@ -45,12 +45,12 @@ resource "google_compute_vpn_tunnel" "tunnel1" {
   provider= "google"
   name          = "tunnel1"
   region      = "${var.google_region}"
-  peer_ip       = "${aws_vpn_connection.main.tunnel1_address}"
-  shared_secret = "${aws_vpn_connection.main.tunnel1_preshared_key}"
+  peer_ip       = "${var.peer_ip}"
+  shared_secret = "${var.shared_secret}"
   ike_version = "1"
 
-  local_traffic_selector  = ["${var.region1_routable_cidr}"]
-  remote_traffic_selector = ["${var.vpc_cidr}"]
+  local_traffic_selector  = ["${var.local_traffic}"]
+  remote_traffic_selector = ["${var.remote_traffic}"]
 
   target_vpn_gateway = "${google_compute_vpn_gateway.target_gateway.self_link}"
 
@@ -59,4 +59,32 @@ resource "google_compute_vpn_tunnel" "tunnel1" {
     "google_compute_forwarding_rule.fr_udp500",
     "google_compute_forwarding_rule.fr_udp4500",
   ]
+}
+
+resource "google_compute_route" "route_vpn" {
+  name        = "vpnroute"
+  dest_range  = "${var.remote_traffic}"
+  network     = "${var.network}"
+  next_hop_vpn_tunnel = "${google_compute_vpn_tunnel.tunnel1.self_link}"
+  priority    = 100
+}
+
+resource "google_compute_firewall" "vpn" {
+  name    = "test-allow-internal"
+  network = "${var.network}"
+  source_ranges= ["${var.remote_traffic}"]
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["1-65535"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["1-65535"]
+  }
 }

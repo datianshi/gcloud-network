@@ -7,6 +7,7 @@ resource "aws_instance" "test_machine" {
     vpc_security_group_ids = ["${aws_security_group.regular_ssh.id}"]
     subnet_id = "${aws_subnet.public_subnet_vpc.id}"
     associate_public_ip_address = true
+    # user_data = "${data.template_file.desktop.rendered}"
     root_block_device {
         volume_size = 20
     }
