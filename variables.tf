@@ -5,16 +5,16 @@ variable "region1_routable_cidr" {
 
 variable "cf_ip" {
     description = "cf ip"
-    default = "10.0.0.5"
+    default = "10.0.0.10"
 }
 
-variable "cf_wss_ip" {
+variable "opsman_ip" {
     description = "cf ip"
-    default = "10.0.0.5"
+    default = "10.0.0.6"
 }
 
 variable "peer_ip" {
-    default = "35.196.135.196"
+    default = "35.237.201.169"
 }
 
 
@@ -50,5 +50,5 @@ variable "instance_type" {
 
 variable "instance_ami" {
   description = "intance ami - ubuntu"
-  default = "ami-efd0428f"
+  default = "ami-ba602bc2"
 }

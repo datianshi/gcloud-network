@@ -4,6 +4,8 @@ resource "google_compute_forwarding_rule" "internal-lb" {
   ports = ["443"]
   network = "${var.network}"
   subnetwork = "${var.lb_network}"
+  ip_address = "${var.internal_lb_address}"
+
   backend_service = "${google_compute_region_backend_service.http_lb_backend_service.self_link}"
 }
 

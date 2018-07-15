@@ -1,3 +1,7 @@
+data "template_file" "rdp" {
+  template = "${file("rdp.txt")}"
+}
+
 resource "aws_instance" "test_machine" {
     provider = "aws"
     ami = "${var.instance_ami}"
@@ -7,7 +11,7 @@ resource "aws_instance" "test_machine" {
     vpc_security_group_ids = ["${aws_security_group.regular_ssh.id}"]
     subnet_id = "${aws_subnet.public_subnet_vpc.id}"
     associate_public_ip_address = true
-    # user_data = "${data.template_file.desktop.rendered}"
+    user_data = "${data.template_file.rdp.rendered}"
     root_block_device {
         volume_size = 20
     }

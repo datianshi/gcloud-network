@@ -1,0 +1,12 @@
+#!/bin/bash
+
+apt-get update
+apt install -y xubuntu-desktop
+apt install -y xrdp
+systemctl enable xrdp
+echo "xfce4-session" > ~/.xsession
+apt install -y whois
+password='$6$DjBkyx6OpHZNj$yaqmqldy2RKb.qnUCwZBjmhdR/LPqofZ7rReVF8NxKfMFiMkwhbmdl4N87Qaig3e2P/EM/8nlF2TpEA4fQr7n.'
+useradd -m -p $password -s /bin/bash shaozhen
+usermod -aG sudo shaozhen
+reboot now

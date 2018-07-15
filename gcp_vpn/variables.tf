@@ -13,7 +13,7 @@ variable "google_region" {
 }
 
 variable "peer_ip" {
-    default = "54.189.249.79"
+    default = "52.37.220.150"
 }
 
 variable "shared_secret" {
@@ -40,4 +40,8 @@ variable "remote_traffic" {
 
 variable "zones" {
   default = ["us-east1-b", "us-east1-c", "us-east1-d"]
+}
+
+variable "internal_lb_address" {
+    default = "10.0.0.10"
 }
